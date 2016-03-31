@@ -19,7 +19,7 @@ class TreeNode
 
   def parent=(parent)
     return nil if parent == self.parent
-    # first detach from parent
+
     if self.parent != parent
       self.parent.children.delete(self)
     end
@@ -44,11 +44,17 @@ class TreeNode
 
 
   def dfs (target, &prc)
-
-
+    prc = Proc.new {|node| node.value == target}
+    return self if prc.call(self)
+    children.each do |child|
+      result = child.dfs(target, &prc)
+      return result if !!result
+    end
+    nil
   end
 
-  def bfs
+  def bfs(target, &)
+
   end
 
 end
