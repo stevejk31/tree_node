@@ -53,7 +53,16 @@ class TreeNode
     nil
   end
 
-  def bfs(target, &)
+  def bfs(target, &prc)
+    prc = Proc.new {|node| node.value == target}
+    # dequeue = pop
+    # enqueue = unshift
+    queue = [self]
+    until queue.empty?
+      current = queue.pop
+      return current if prc.call(current)
+      current.children.each {|child| queue.unshift(child)}
+    end
 
   end
 
